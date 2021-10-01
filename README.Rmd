@@ -1,0 +1,104 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# rozhlas
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of `rozhlas` is to provide access to Czech Radio's open data API on broadcasting programme and Radio Wave's playlists.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("skvrnami/rozhlas")
+```
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(dplyr)
+library(rozhlas)
+```
+
+## Stations
+
+Function `get_stations` returns data.frame with data on Czech Radio stations.
+```{r}
+stations <- get_stations()
+glimpse(stations)
+```
+
+```{r}
+stations %>% 
+    select(id, name, type) %>%
+    head() %>%
+    knitr::kable()
+```
+
+## Programme
+
+The data on Czech Radio's programme are available using four functions `get_current_programme` (for current day and all stations), `get_current_station_programme` (for current day and a specified station), `get_day_programme` (for a specified day and all stations) and `get_day_station_programme` (for a specified day and station).
+
+```{r}
+today_programme <- get_current_programme()
+today_programme$plus %>%
+    head() %>%
+    knitr::kable()
+```
+
+```{r}
+rz_today_programme <- get_current_station_programme("radiozurnal")
+rz_today_programme %>%
+    head() %>%
+    knitr::kable()
+```
+
+```{r}
+sept30 <- get_day_programme("2021-09-30")
+sept30$plus %>%
+    head() %>%
+    knitr::kable()
+```
+
+```{r}
+rz_sept30 <- get_day_station_programme("2021-09-30", "radiozurnal")
+rz_sept30 %>%
+    head() %>%
+    knitr::kable()
+```
+
+
+## Playlists
+
+The playlist are available only for the Radio Wave station by `get_wave_playlist` function for the current day and `get_day_wave_playlist` for a specific day.
+```{r}
+today_wave <- get_wave_playlist()
+today_wave %>%
+    head() %>% 
+    knitr::kable()
+```
+
+```{r}
+sept7_wave <- get_day_wave_playlist("2021-09-07")
+sept7_wave %>%
+    head() %>% 
+    knitr::kable()
+```
+

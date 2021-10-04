@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # rozhlas
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/skvrnami/rozhlas/workflows/R-CMD-check/badge.svg)](https://github.com/skvrnami/rozhlas/actions)
 <!-- badges: end -->
 
 The goal of `rozhlas` is to provide access to Czech Radio's open data API on broadcasting programme and Radio Wave's playlists.
@@ -32,7 +33,7 @@ devtools::install_github("skvrnami/rozhlas")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r setup, warning=FALSE, message=FALSE}
 library(dplyr)
 library(rozhlas)
 ```
